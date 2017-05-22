@@ -10,9 +10,35 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
      <link href="css/bootstrap.min.css" rel="stylesheet">  
      <style>
-     
+	 
+     .container {margin:0 auto;}
+	@media (min-width: 1100px) {
+		.container {width:1050px;}
+	}
+	@media (max-width: 1100px) and (min-width: 1000px) {
+		.container {width:950px;}
+	}
+	@media (max-width: 1000px) and (min-width: 800px) {
+		.container {width:750px;}
+	}
+	@media (max-width: 800px) and (min-width: 500px) {
+		.container {width:450px;}
+	}
+	@media (max-width: 500px) {
+		.container {width:300px;}
+	}
+ 
+	 body {
+      position: relative; 
+  }
+  #home 	{padding-top:50px;height:500px;color: #fff; background-image: url(https://theroadtochangeindia.files.wordpress.com/2011/01/foreskin-press-bridge-bandra-worli-giant-traffic-jam-snarl.jpg?w=604); background-size:100% 100%; background-repeat: no-repeat;}
+  #section1 {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
+  #section2 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
+  #section3 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}
+  </style>
      </style>
   </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
   <body>
      
      <div class="navbar navbar-inverse navbar-static-top">
@@ -26,17 +52,40 @@
              </button>
              <div class="collapse navbar-collapse navHeaderCollapse">
                  <ul class="nav navbar-nav navbar-right">
-                     <li><a href="#">HOME</a></li>
-                     <li><a href="#">Section1</a></li>
-                     <li><a href="#">Section2</a></li>
-                     <li><a href="#">Section3</a></li>
+                     <li><a href="#home">HOME</a></li>
+                     <li><a href="#section1">Section1</a></li>
+                     <li><a href="#section2">Section2</a></li>
+                     <li><a href="#section3">Section3</a></li>
                  </ul>
              </div>
          </div>
      </div>
+	<div id="home" class="container">
+	
+		<h1>HOMe</h1>
+	</div>
+	<br>
+	<div id="section1" class="container">
+		<h1>Section 1</h1>
+	</div>
+	<br>
+	<div id="section2" class="container">
+		<h1>Section 2</h1>
+	</div>
+	<br>
+	<div id="section3" class="container">
+		<h1>Section 3</h1>
+	</div>
   
+      <!-- Dolna stopka strony -->
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <p class="navbar-text pull-left">Strona stworzona przez Mateusz Dąbrowskiego & Damiana Gurgula</p>
+            <a class="navbar-btn btn btn-primary pull-right" href="https://github.com/Fusionek/Projekt-SPA" target="_blank" >Zobacz na githubie!</a>
+        </div>    
+    </div>
    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
