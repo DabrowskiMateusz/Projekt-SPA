@@ -5,11 +5,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="angular-1.6.4/angular.min.js"></script>
     <title>Traffic map</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-     <link href="css/bootstrap.min.css" rel="stylesheet">  
+    <link href="css/bootstrap.min.css" rel="stylesheet"> 
      <style>
+	 
+	 #mapa {
+        height: 100%;
+      }
+     html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+
 	 
      .container {margin:0 auto;}
 	@media (min-width: 1100px) {
@@ -34,11 +45,11 @@
   #home 	{padding-top:50px;height:500px;color: #fff; background-image: url(https://theroadtochangeindia.files.wordpress.com/2011/01/foreskin-press-bridge-bandra-worli-giant-traffic-jam-snarl.jpg?w=604); background-size:100% 100%; background-repeat: no-repeat;}
   #section1 {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
   #section2 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
-  #section3 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}
+  #section3 {padding-top:50px;height:500px;color: black; background-color: #00bcd4;}
   </style>
      </style>
   </head>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  
   <body>
      
      <div class="navbar navbar-inverse navbar-static-top">
@@ -66,15 +77,34 @@
 	</div>
 	<br>
 	<div id="section1" class="container">
-		<h1>Section 1</h1>
+		<h1>Natężenie dróg w Polsce</h1>
+		<div id="mapa"></div>
+		
+		
 	</div>
 	<br>
 	<div id="section2" class="container">
 		<h1>Section 2</h1>
+		<p>Podaj wysokosć i szerokośc szukanego odcinka.</p>
+		Szerokość geograficzna : <input type="text" name="szer">
+		<br>
+		Wysokość geograficzna :<input type="text" name="wys">
+		<button onclick="pokaz()">Pokaż!</button>
+		<div id="mapeczka"></div>
 	</div>
 	<br>
-	<div id="section3" class="container">
-		<h1>Section 3</h1>
+	<div ng-app="appka" ng-controller="contr" id="section3" class="container">
+		<h1>Ulubiona trasa</h1>
+		Imie: <input type="text" ng-model="name">
+		<br>
+		Nazwisko : <input type="text" ng-model="sname">
+		<br>
+		Ulubiona Trasa :<input type="text" ng-model="trasa">
+		<br>
+		<button ng-click="zapisz()">Zapisz!</button>
+		<button ng-click="usun()">Usun!</button>
+		<button ng-click="wyswietl()">Wyswietl!</button>
+		
 	</div>
   
       <!-- Dolna stopka strony -->
@@ -84,8 +114,64 @@
             <a class="navbar-btn btn btn-primary pull-right" href="https://github.com/Fusionek/Projekt-SPA" target="_blank" >Zobacz na githubie!</a>
         </div>    
     </div>
+   <script> 
+   <!--Natezenie ruchu domyślnie dla krakowa -->
+   function mapapolski() {
+        var mapa = new google.maps.Map(document.getElementById('mapa'), {
+          zoom: 13,
+          center: {lat: 50.06465009999999, lng: 19.94497990000002}
+        });
+
+        var natezenie = new google.maps.TrafficLayer();
+        natezenie.setMap(mapa);
+      }
+	  
+	<!-- Zapis i usuwanie do localstorage ulubionej trasy --> 
+		var app = angular.module('appka',[]);
    
-    
+		app.controller('contr', function($scope){
+		$scope.zapisz = function (){
+		var name = $scope.name;
+		var sname =$scope.sname;
+		var trasa =$scope.trasa;
+		localStorage.setItem('name', name);
+		localStorage.setItem('sname', sname);
+		localStorage.setItem('trasa', trasa);
+	
+		
+		}
+		$scope.usun = function() {
+				localStorage.removeItem('name');
+            	localStorage.removeItem('sname');
+				localStorage.removeItem('trasa');
+		}
+		
+		$scope.wyswietl = function () { 
+					var name = '';
+            		var sname = '';
+					var trasa = '';
+            if (localStorage.getItem('name') != null) {
+                name = localStorage.getItem('name');
+            }
+            if (localStorage.getItem('sname') != null) {
+                sname = localStorage.getItem('sname');
+            }
+            if (localStorage.getItem('name') != null & localStorage.getItem('sname') != null & localStorage.getItem('trasa') != null) {
+                alert(name + " " + sname + "Twoja Ulubiona trasa to " + trasa)
+            } else {
+                alert('Nie podałeś ulubionej trasy')
+            }
+			
+		}
+	});
+   
+   </script>
+ 
+   <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&callback=mapapolski">
+    </script>
+	
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
