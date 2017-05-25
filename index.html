@@ -1,177 +1,134 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="angular-1.6.4/angular.min.js"></script>
     <title>Traffic map</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+     <link href="css/bootstrap.min.css" rel="stylesheet">  
      <style>
-	 
-	 #mapa {
-        height: 100%;
+       #map {
+        height: 500px;
       }
-     html, body {
+         
+	  html, body {
         height: 100%;
         margin: 0;
         padding: 0;
       }
-
-
-	 
-     .container {margin:0 auto;}
-	@media (min-width: 1100px) {
-		.container {width:1050px;}
-	}
-	@media (max-width: 1100px) and (min-width: 1000px) {
-		.container {width:950px;}
-	}
-	@media (max-width: 1000px) and (min-width: 800px) {
-		.container {width:750px;}
-	}
-	@media (max-width: 800px) and (min-width: 500px) {
-		.container {width:450px;}
-	}
-	@media (max-width: 500px) {
-		.container {width:300px;}
-	}
- 
-	 body {
-      position: relative; 
-  }
-  #home 	{padding-top:50px;height:500px;color: #fff; background-image: url(https://theroadtochangeindia.files.wordpress.com/2011/01/foreskin-press-bridge-bandra-worli-giant-traffic-jam-snarl.jpg?w=604); background-size:100% 100%; background-repeat: no-repeat;}
-  #section1 {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
-  #section2 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
-  #section3 {padding-top:50px;height:500px;color: black; background-color: #00bcd4;}
-  </style>
+        
+    
      </style>
   </head>
-  
-  <body>
-     
+  <body >
+     <!-- Nawigacja strony -->
      <div class="navbar navbar-inverse navbar-static-top">
          <div class="container">
              <a href="#" class="navbar-brand">Traffic Site</a>
+             <!-- Nawigacja dla małych rozdzielczości -->
              <button class="navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
                  <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
-                 <span class="icon-bar"></span>
-                 
+                 <span class="icon-bar"></span> 
              </button>
+             <!-- Koniec nawigacji dla malych rozdzielczosci -->
+             
+             <!-- Sekcje w nawigacji -->
              <div class="collapse navbar-collapse navHeaderCollapse">
                  <ul class="nav navbar-nav navbar-right">
-                     <li><a href="#home">HOME</a></li>
-                     <li><a href="#section1">Section1</a></li>
-                     <li><a href="#section2">Section2</a></li>
-                     <li><a href="#section3">Section3</a></li>
+                     <li><a href="#jumbotron">HOME</a></li>
+                     <li><a href="#sekcja1">Mapa</a></li>
+                     <li><a href="#sekcja2">Funkcjonalnosc1</a></li>
+                     <li><a href="#sekcja3">Funkcjonalnosc2</a></li>
+                     <li><a href="#sekcja4">Funkcjonalnosc3</a></li>
+                     <li><a href="#sekcja4">Funkcjonalnosc4</a></li>
+                     <li><a href="#sekcja4">Funkcjonalnosc5</a></li>
                  </ul>
              </div>
          </div>
      </div>
-	<div id="home" class="container">
-	
-		<h1>HOMe</h1>
-	</div>
-	<br>
-	<div id="section1" class="container">
-		<h1>Natężenie dróg w Polsce</h1>
-		<div id="mapa"></div>
-		
-		
-	</div>
-	<br>
-	<div id="section2" class="container">
-		<h1>Section 2</h1>
-		<p>Podaj wysokosć i szerokośc szukanego odcinka.</p>
-		Szerokość geograficzna : <input type="text" name="szer">
-		<br>
-		Wysokość geograficzna :<input type="text" name="wys">
-		<button onclick="pokaz()">Pokaż!</button>
-		<div id="mapeczka"></div>
-	</div>
-	<br>
-	<div ng-app="appka" ng-controller="contr" id="section3" class="container">
-		<h1>Ulubiona trasa</h1>
-		Imie: <input type="text" ng-model="name">
-		<br>
-		Nazwisko : <input type="text" ng-model="sname">
-		<br>
-		Ulubiona Trasa :<input type="text" ng-model="trasa">
-		<br>
-		<button ng-click="zapisz()">Zapisz!</button>
-		<button ng-click="usun()">Usun!</button>
-		<button ng-click="wyswietl()">Wyswietl!</button>
-		
-	</div>
-  
+      <!-- Koniec Nawigacji -->
+      
+      <!-- Początek sekcji jumbotron -->
+     <div class="container">
+             <center>
+            <div class="jumbotron" id="jumbotron">
+             <h1>Witamy na naszej stronie </h1>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
+             </p>
+         </div>
+         </center>
+     </div>
+     <!-- Koniec sekcji jumbotron -->
+     
+     <!-- Początek głównego contentu -->
+     <div class="container">
+         <div class="row well">
+             <div class="col-sm-12" id="sekcja1">
+               <div id="map" ></div>          
+             </div>
+         </div>
+         <div class="row well">
+             <div class="col-sm-12" id="sekcja2">
+                 <h1>Witamy na naszej stronie </h1>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
+             </p>
+             </div>
+         </div>
+         <div class="row well">
+             <div class="col-sm-12" id="sekcja3">
+                 <h1>Witamy na naszej stronie </h1>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
+             </p>
+             </div>
+         </div>
+         <div class="row well">
+             <div class="col-sm-12" id="sekcja4">
+                 <h1>Witamy na naszej stronie </h1>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
+             </p>
+             </div>
+         </div>
+         <div class="row well">
+             <div class="col-sm-12" id="sekcja5">
+                 <h1>Witamy na naszej stronie </h1>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
+             </p>
+             </div>
+         </div>
+     </div>
+     
+     
+     <!-- Koniec głównego contentu -->
+     
       <!-- Dolna stopka strony -->
-    <div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="navbar navbar-default navbar-static-bottom">
         <div class="container">
             <p class="navbar-text pull-left">Strona stworzona przez Mateusz Dąbrowskiego & Damiana Gurgula</p>
             <a class="navbar-btn btn btn-primary pull-right" href="https://github.com/Fusionek/Projekt-SPA" target="_blank" >Zobacz na githubie!</a>
         </div>    
     </div>
-   <script> 
-   <!--Natezenie ruchu domyślnie dla krakowa -->
-   function mapapolski() {
-        var mapa = new google.maps.Map(document.getElementById('mapa'), {
+    <!-- Koniec stopki -->
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 13,
-          center: {lat: 50.06465009999999, lng: 19.94497990000002}
+          center: {lat: 50.0614300, lng: 19.9365800}
         });
 
-        var natezenie = new google.maps.TrafficLayer();
-        natezenie.setMap(mapa);
+        var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
       }
-	  
-	<!-- Zapis i usuwanie do localstorage ulubionej trasy --> 
-		var app = angular.module('appka',[]);
-   
-		app.controller('contr', function($scope){
-		$scope.zapisz = function (){
-		var name = $scope.name;
-		var sname =$scope.sname;
-		var trasa =$scope.trasa;
-		localStorage.setItem('name', name);
-		localStorage.setItem('sname', sname);
-		localStorage.setItem('trasa', trasa);
-	
-		
-		}
-		$scope.usun = function() {
-				localStorage.removeItem('name');
-            	localStorage.removeItem('sname');
-				localStorage.removeItem('trasa');
-		}
-		
-		$scope.wyswietl = function () { 
-					var name = '';
-            		var sname = '';
-					var trasa = '';
-            if (localStorage.getItem('name') != null) {
-                name = localStorage.getItem('name');
-            }
-            if (localStorage.getItem('sname') != null) {
-                sname = localStorage.getItem('sname');
-            }
-            if (localStorage.getItem('name') != null & localStorage.getItem('sname') != null & localStorage.getItem('trasa') != null) {
-                alert(name + " " + sname + "Twoja Ulubiona trasa to " + trasa)
-            } else {
-                alert('Nie podałeś ulubionej trasy')
-            }
-			
-		}
-	});
-   
-   </script>
- 
-   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&callback=mapapolski">
     </script>
-	
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&callback=initMap">
+    </script>  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    
   </body>
 </html>
