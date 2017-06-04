@@ -8,21 +8,111 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
      <link href="css/bootstrap.min.css" rel="stylesheet">  
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     
      <style>
-       #map {
+         #mapa{
+             height: 500px;
+         }
+  #map {
         height: 500px;
       }
-         
-	  html, body {
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
         height: 100%;
         margin: 0;
         padding: 0;
       }
-        
-    
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+.to-top{
+    text-align:center;
+}
+#scroll-to-top{
+    display:none;
+    position:fixed;
+    bottom:15px;
+    right:20px;
+    opacity:0.8;
+}
+#scroll-to-top:hover{
+    opacity:1;
+} 
      </style>
   </head>
   <body >
+   <!-- Przynisk zabierający do góry strony -->
+    <a href="#" title="Do góry!" id="scroll-to-top"><img src="back-to-top-1.png" alt="strzałka do góry" /></a>
+    <!-- Koniec przynisku -->
+    
      <!-- Nawigacja strony -->
      <div class="navbar navbar-inverse navbar-static-top">
          <div class="container">
@@ -67,14 +157,15 @@
      <div class="container">
          <div class="row well">
              <div class="col-sm-12" id="sekcja1">
-               <div id="map" ></div>          
+                  <h1>W tej sekcji znajduje się mapa  </h1>
+                       <div id="mapa"></div>     
              </div>
          </div>
          <div class="row well">
              <div class="col-sm-12" id="sekcja2">
-                 <h1>Witamy na naszej stronie </h1>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
-             </p>
+                     <h1>W tej sekcji znajduje się mapa z wyszukiwarką </h1>
+                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                    <div id="map"></div> 
              </div>
          </div>
          <div class="row well">
@@ -112,22 +203,116 @@
     </div>
     <!-- Koniec stopki -->
     <script>
-      function initMap() {
+        //PONIŻEJ JEST SKRYPT DO MAPY Z WYSZUKIWARKĄ
+        
+      function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
           zoom: 13,
-          center: {lat: 50.0614300, lng: 19.9365800}
+          mapTypeId: 'roadmap'
+        });
+          
+          var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
         });
 
-        var trafficLayer = new google.maps.TrafficLayer();
-        trafficLayer.setMap(map);
-      }
-    </script>
-    
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&callback=initMap">
-    </script>  
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+           
+        // PONIŻEJ JEST SKRYPT DO ZWYKŁEJ MAPY
+        
+        function initMap() {
+				var mapa = new google.maps.Map(document.getElementById('mapa'), {
+					zoom: 13,
+					center: {lat: 50.0614300, lng: 19.9365800}
+				});
+
+				var trafficLayer = new google.maps.TrafficLayer();
+				trafficLayer.setMap(mapa);
+			}
+
+			function initMaps() {
+				initAutocomplete();
+				initMap();
+			}
+        //Skrypt scroll to top
+        $(function(){
+    var stt_is_shown = false;
+    $(window).scroll(function(){
+       var win_height = 300;
+       var scroll_top = $(document).scrollTop(); 
+       if (scroll_top > win_height && !stt_is_shown) {
+          stt_is_shown = true;
+          $("#scroll-to-top").fadeIn();
+       } else if (scroll_top < win_height && stt_is_shown) {
+          stt_is_shown = false;
+          $("#scroll-to-top").fadeOut();
+       }
+   });
+   $("#scroll-to-top").click(function(e){
+      e.preventDefault();
+      $('html, body').animate({scrollTop:0}, 1500);
+    });
+ });
+     //Koniec skryptu scroll to top   
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&libraries=places&callback=initMaps"async defer></script>    
     <script src="js/bootstrap.min.js"></script>
     
   </body>
