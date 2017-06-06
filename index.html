@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Traffic map</title>
-	<script src="angular-1.6.4/angular.min.js"></script>
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
      <link href="css/bootstrap.min.css" rel="stylesheet">  
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
      
      <style>
          #mapa{
@@ -97,6 +98,7 @@
     text-align:center;
 }
 #scroll-to-top{
+    z-index: 2;
     display:none;
     position:fixed;
     bottom:15px;
@@ -129,12 +131,12 @@
              <div class="collapse navbar-collapse navHeaderCollapse">
                  <ul class="nav navbar-nav navbar-right">
                      <li><a href="#jumbotron">HOME</a></li>
-                     <li><a href="#sekcja1">Mapa</a></li>
-                     <li><a href="#sekcja2">Funkcjonalnosc1</a></li>
-                     <li><a href="#sekcja3">Funkcjonalnosc2</a></li>
-                     <li><a href="#sekcja4">Funkcjonalnosc3</a></li>
+                     <li><a href="#sekcja1">Funkcjonalnosc1</a></li>
+                     <li><a href="#sekcja2">Funkcjonalnosc2</a></li>
+                     <li><a href="#sekcja3">Funkcjonalnosc3</a></li>
                      <li><a href="#sekcja4">Funkcjonalnosc4</a></li>
                      <li><a href="#sekcja4">Funkcjonalnosc5</a></li>
+                     <li><a href="#sekcja4">Funkcjonalnosc6</a></li>
                  </ul>
              </div>
          </div>
@@ -157,42 +159,54 @@
      <div class="container">
          <div class="row well">
              <div class="col-sm-12" id="sekcja1">
-                  <h1>W tej sekcji znajduje się mapa  </h1>
+                 <center> <h1>W tej sekcji znajduje się mapa  </h1> </center>
                        <div id="mapa"></div>     
              </div>
          </div>
-         <div ng-app="appka" ng-controller="contr" class="row well">
+         <div class="row well">
              <div class="col-sm-12" id="sekcja2">
-<<<<<<< HEAD
-                     <h1>W tej sekcji znajduje się mapa z wyszukiwarką </h1>
+                    <center> <h1>W tej sekcji znajduje się mapa z wyszukiwarką </h1> </center>
                     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
                     <div id="map"></div> 
-=======
-                 <h1>Dodanie ulubionej Trasy </h1>
-             <p>Drogi użytkowniku w tej sekcji możesz dodać ulubioną trasę do Local Storage. W każdej chwili możesz usunąć lub  wyświetlić jaką trasę dodałeś do ulubionych.
-             </p>
-					Imie: <input type="text" class="form inline" class="form-control" placeholder="Podaj imię" ng-model="name">
-					<br>
-					Nazwisko : <input type="text" class="form inline" class="form-control" placeholder="Podaj nazwisko" ng-model="sname">
-					<br>
-					Ulubiona Trasa :<input type="text" class="form inline" class="form-control" placeholder="Podaj ulubioną trasę" ng-model="trasa">
-					<br>
-					<br>
-					<button ng-click="zapisz()" class="btn btn-success">Zapisz!</button>
-					<button ng-click="usun()"class="btn btn-warning">Usun!</button>
-					<button ng-click="wyswietl()" class="btn btn-info">Wyswietl!</button>
-			 
-			 
->>>>>>> 375402e09d3828f96dde13d3c24dc82ad35a8224
              </div>
          </div>
-         <div class="row well">
-             <div class="col-sm-12" id="sekcja3">
-                 <h1>Witamy na naszej stronie </h1>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
-             </p>
 
-	   
+         <div class="row well">
+           <center> <h1>Dodaj swoją ulubioną trasę!</h1></center>
+             <div class="col-sm-12" id="sekcja3">
+                  <div class="row">
+            <div class="col-1-2">
+               <center>
+                <label for="name">Podaj imię</label>
+                <input type="text" name="name" id="name">
+                </center>
+            </div>
+            <div class="col-1-2">
+               <center>
+                <label for="surname">Podaj nazwisko</label>
+                <input type="text" name="surname" id="surname">
+                </center>
+            </div>
+			<div class="col-1-2">
+                <center>
+                <label for="trasa1">Podaj Trasę</label>
+                <input type="trasa1" name="trasa1" id="trasa1">
+				<label for="trasa2"> - </label>
+                <input type="text" name="trasa2" id="trasa2">
+                </center>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-1-1">
+                <center>
+                <button type="button" class="btn btn-success" class="button" id="btnSave">Zapisz dane</button>
+                <button type="button" class="btn btn-info" class="button" id="btnRead">Odczytaj dane</button>
+                <button type="button" class="btn btn-warning" class="button" id="btnDelete">Usuń dane</button>
+                </center>
+            </div>
+        </div>
+                
              </div>
          </div>
          <div class="row well">
@@ -223,24 +237,16 @@
     </div>
     <!-- Koniec stopki -->
     <script>
-<<<<<<< HEAD
         //PONIŻEJ JEST SKRYPT DO MAPY Z WYSZUKIWARKĄ
         
       function initAutocomplete() {
-=======
-	  function initMap() {
->>>>>>> 375402e09d3828f96dde13d3c24dc82ad35a8224
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -33.8688, lng: 151.2195},
           zoom: 13,
           mapTypeId: 'roadmap'
         });
-<<<<<<< HEAD
           
           var trafficLayer = new google.maps.TrafficLayer();
-=======
-        var trafficLayer = new google.maps.TrafficLayer();
->>>>>>> 375402e09d3828f96dde13d3c24dc82ad35a8224
         trafficLayer.setMap(map);
 
         // Create the search box and link it to the UI element.
@@ -302,7 +308,6 @@
           map.fitBounds(bounds);
         });
       }
-<<<<<<< HEAD
            
         // PONIŻEJ JEST SKRYPT DO ZWYKŁEJ MAPY
         
@@ -311,58 +316,6 @@
 					zoom: 13,
 					center: {lat: 50.0614300, lng: 19.9365800}
 				});
-=======
-
-	  
-	  
-	  <!-- Zapis i usuwanie do localstorage ulubionej trasy --> 
-		var app = angular.module('appka',[]);
-   
-		app.controller('contr', function($scope){
-		$scope.zapisz = function (){
-		var name = $scope.name;
-		var sname =$scope.sname;
-		var trasa =$scope.trasa;
-		localStorage.setItem('name', name);
-		localStorage.setItem('sname', sname);
-		localStorage.setItem('trasa', trasa);
-	
-		
-		}
-		$scope.usun = function() {
-				localStorage.removeItem('name');
-            	localStorage.removeItem('sname');
-				localStorage.removeItem('trasa');
-		}
-		
-		$scope.wyswietl = function () { 
-					var name = '';
-            		var sname = '';
-					var trasa = '';
-            if (localStorage.getItem('name') != null) {
-                name = localStorage.getItem('name');
-            }
-            if (localStorage.getItem('sname') != null) {
-                sname = localStorage.getItem('sname');
-            }
-			if (localStorage.getItem('sname') != null) {
-                trasa = localStorage.getItem('trasa');
-            }
-            if (localStorage.getItem('name') != null & localStorage.getItem('sname') != null & localStorage.getItem('trasa') != null) {
-                alert(name + " " + sname + " Twoja Ulubiona trasa to " + trasa)
-            } else {
-                alert('Nie podałeś ulubionej trasy')
-            }
-			
-		}
-	});
-	  
-    </script>
-    
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&callback=initMap">
-    </script>  
->>>>>>> 375402e09d3828f96dde13d3c24dc82ad35a8224
 
 				var trafficLayer = new google.maps.TrafficLayer();
 				trafficLayer.setMap(mapa);
@@ -391,10 +344,63 @@
       $('html, body').animate({scrollTop:0}, 1500);
     });
  });
-     //Koniec skryptu scroll to top   
+     //Koniec skryptu scroll to top 
+        
+         //Zapis i usuwanie do localstorage ulubionej trasy 
+		document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#btnSave').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var name = document.querySelector('input[name=name]').value;
+            var surname = document.querySelector('input[name=surname]').value;
+			var trasa1 = document.querySelector('input[name=trasa1]').value;
+			var trasa2 = document.querySelector('input[name=trasa2]').value;
+            localStorage.setItem('name', name);
+            localStorage.setItem('surname', surname);
+			localStorage.setItem('trasa1', trasa1);
+            localStorage.setItem('trasa2', trasa2);
+        });
+
+        document.querySelector('#btnRead').addEventListener('click', function(e) {
+            e.preventDefault();
+            var name = '';
+            var surname = '';
+			var trasa1 = '';
+			var trasa2 = '';
+            if (localStorage.getItem('name') != null) {
+                name = localStorage.getItem('name');
+            }
+            if (localStorage.getItem('surname') != null) {
+                surname = localStorage.getItem('surname');
+            }
+			if (localStorage.getItem('trasa1') != null) {
+                trasa1 = localStorage.getItem('trasa1');
+            }
+			if (localStorage.getItem('trasa2') != null) {
+                trasa2 = localStorage.getItem('trasa2');
+            }
+			
+			
+			
+            if (localStorage.getItem('name') != null & localStorage.getItem('surname') != null & localStorage.getItem('trasa1') != null & localStorage.getItem('trasa2') != null) {
+                alert(name + ' ' + surname + " Twoja Trasa to: " +trasa1 +" - "+ trasa2);
+            } else {
+                alert('Nie zapisałeś danych w localStorage')
+            }
+        });
+
+        document.querySelector('#btnDelete').addEventListener('click', function(e) {
+            localStorage.removeItem('name');
+            localStorage.removeItem('surname');
+			localStorage.removeItem('trasa1');
+            localStorage.removeItem('trasa2');
+        });
+    });
+        
     </script>
+   
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&libraries=places&callback=initMaps"async defer></script>    
     <script src="js/bootstrap.min.js"></script>
-    
+     
   </body>
 </html>
