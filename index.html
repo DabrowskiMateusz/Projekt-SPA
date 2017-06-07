@@ -9,7 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
      <link href="css/bootstrap.min.css" rel="stylesheet">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
      
      <style>
          #mapa{
@@ -218,9 +218,65 @@
          </div>
          <div class="row well">
              <div class="col-sm-12" id="sekcja5">
-                 <h1>Witamy na naszej stronie </h1>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
-             </p>
+                  <div ng-app="myapp" ng-controller="usercontroller" ng-init="displayData()">  
+                     <h1><center>Informacje o zdarzeniu</center></h1>
+					 <p>Drogi użytkowniku tutaj mozesz dodac informacje o losowych zdarzeniach na drodze, by ułatwić innym podróż .</p>
+					 <!--Przycisk umozliwiajacy rossuniecie formularza-->
+					 <button class="btn btn-primary" ng-click="frmToggle()"> + Dodaj</button>
+					 <br>
+					 <!-- Formularz informacji o zdarzeniach-->
+					<form class="form-horizontal" id="happenForm" hidden>
+					 <div class="form-group">
+					 <label for="route" class="col-sm-2 control-label">Odcinek</label>
+						<div class="col-sm-10">
+                     <input type="text" name="route" placeholder="Tutaj możesz podać odcinek na którym doszło do zdarzenia np: 'Brzesko-Kraków'"  ng-model="route" class="form-control" /> 
+						</div>
+						</div>
+                     <br />  
+                     <div class="form-group">
+							<label for="incident" class="col-sm-2 control-label">Zdarzenie</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" name="incident" placeholder="Tutaj możesz wpisać informacje o losowym zdarzeniu na drodze." ng-model="incident"></textarea>
+								</div>
+					</div>
+					<div class="form-group">
+							<label for="place" class="col-sm-2 control-label">Miejsce zdarzenia</label>
+								<div class="col-sm-10">
+									<input type="text" name="place" placeholder="Tutaj możesz podać dokładny km zdarzenia lub ulicę" ng-model="place" class="form-control" /> 
+							</div>
+					</div>
+					<div class="form-group">
+							<label for="user" class="col-sm-2 control-label">Użytkownik</label>
+								<div class="col-sm-10">
+									<input type="text" name="user" placeholder="Tutaj możesz podać swoj nick lub imie i nazwisko" ng-model="user" class="form-control" /> 
+							</div>
+					</div>
+						<input type="hidden" ng-model="id" />  
+						<input type="submit" name="btnInsert" class="btn btn-info" ng-click="insertData()" value="Dodaj"/>
+					</form>
+					
+					<!--Tabela wyświetlająca dane z bazy danych-->
+						<div class="table-responsive">
+						<table class="table table-bordered" class="table table-striped">  
+                          <tr>  
+                               <th>Odcinek</th>  
+                               <th>Zdarzenie</th>  
+                               <th>Miejsce Zdarzenia</th>
+							   <th>Dodano</th>
+							   <th>Użytkownik</th>
+							   <th>Usuń</th>
+                          </tr>  
+                          <tr ng-repeat="x in names">  
+                               <td>{{x.route}}</td>  
+                               <td>{{x.incident}}</td>
+							   <td>{{x.place}}</td>
+							   <th>{{x.added}}</td>
+							   <th>{{x.user}}</td>
+							   <td><button ng-click="deleteData(x.id )"class="btn btn-danger btn-xs">Usuń</button></td>
+                          </tr>  
+                     </table> 
+					</div>					 
+                </div>
              </div>
          </div>
      </div>
@@ -237,11 +293,58 @@
     </div>
     <!-- Koniec stopki -->
     <script>
+	// Poczatek kodu angulara do losowych zdarzen 
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){ 
+
+	
+	 $scope.frmToggle = function() {
+        $('#happenForm').slideToggle();
+    }
+	// Funkcja umozliwiająca zapis do bazy
+      $scope.insertData = function(){  
+           $http.post(  
+                "insert.php",  
+                {'route':$scope.route, 'incident':$scope.incident, 'place':$scope.place, 'user':$scope.user}  
+           ).success(function(data){  
+                alert(data);  
+                $scope.route = null;  
+                $scope.incident = null; 
+				$scope.place = null;
+				$scope.user = null;
+				$scope.displayData();
+				$('#happenForm').slideToggle();
+           });  
+      }  
+	 // Funkcja wyświetlająca dodane informacje o zdarzeniach 
+	  $scope.displayData = function(){  
+           $http.get("select.php")  
+           .success(function(data){  
+                $scope.names = data;  
+           });    
+      } 
+	  // Funkcja usuwająca informacje o zdarzeniach
+	$scope.deleteData = function(id){  
+           if(confirm("Napewno chcesz usunąć zdarzenie?"))  
+           {  
+                $http.post("delete.php", {'id':id})  
+                .success(function(data){  
+                     alert(data);  
+                     $scope.displayData();  
+                });  
+           }  
+           else  
+           {  
+                return false;  
+           }  
+      } 	  
+ });  
+	
         //PONIŻEJ JEST SKRYPT DO MAPY Z WYSZUKIWARKĄ
         
       function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -33.8688, lng: 151.2195},
+          center: {lat: 50.0614300, lng: 19.9365800},
           zoom: 13,
           mapTypeId: 'roadmap'
         });
@@ -249,12 +352,12 @@
           var trafficLayer = new google.maps.TrafficLayer();
         trafficLayer.setMap(map);
 
-        // Create the search box and link it to the UI element.
+        // Utworzenie pola wyszukiwania i połączenie z mapa.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-        // Bias the SearchBox results towards current map's viewport.
+        // Przeszukuje wyniki SearchBox w kierunku aktualnej mapy.
         map.addListener('bounds_changed', function() {
           searchBox.setBounds(map.getBounds());
         });
@@ -360,7 +463,7 @@
 			localStorage.setItem('trasa1', trasa1);
             localStorage.setItem('trasa2', trasa2);
         });
-
+		// Dodane danych do localstorage
         document.querySelector('#btnRead').addEventListener('click', function(e) {
             e.preventDefault();
             var name = '';
@@ -380,12 +483,12 @@
                 trasa2 = localStorage.getItem('trasa2');
             }
 			
-			
+			<!-- Wyświetlenie danych z local storage w postaci alertu-->
 			
             if (localStorage.getItem('name') != null & localStorage.getItem('surname') != null & localStorage.getItem('trasa1') != null & localStorage.getItem('trasa2') != null) {
                 alert(name + ' ' + surname + " Twoja Trasa to: " +trasa1 +" - "+ trasa2);
             } else {
-                alert('Nie zapisałeś danych w localStorage')
+                alert('Nie podałeś swojej ulubionej trasy')
             }
         });
 
