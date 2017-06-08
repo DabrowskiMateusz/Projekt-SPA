@@ -1,28 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Traffic map</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet"> 
-		<link rel="stylesheet" href="style.css">		
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
-        <script src="js/app.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/mapy.js"></script>
-        <script src="js/scrolltotop.js"></script>
-        <script src="js/localstorage.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&libraries=places&callback=initMaps"async defer></script>    
-		<script src="js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Traffic map</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+     <link href="css/bootstrap.min.css" rel="stylesheet">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+     
+     <style>
+         #mapa{
+             height: 500px;
+         }
+  #map {
+        height: 500px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+.to-top{
+    text-align:center;
+}
+#scroll-to-top{
+    z-index: 2;
+    display:none;
+    position:fixed;
+    bottom:15px;
+    right:20px;
+    opacity:0.8;
+}
+#scroll-to-top:hover{
+    opacity:1;
+} 
+     </style>
   </head>
-  
   <body ng-app="myapp">
   
    <!-- Przynisk zabierający do góry strony -->
     <a href="#" title="Do góry!" id="scroll-to-top"><img src="back-to-top-1.png" alt="strzałka do góry" /></a>
-    <!-- Koniec przycisku -->
+    <!-- Koniec przynisku -->
     
      <!-- Nawigacja strony -->
      <div class="navbar navbar-inverse navbar-static-top">
@@ -40,12 +132,12 @@
              <div class="collapse navbar-collapse navHeaderCollapse">
                  <ul class="nav navbar-nav navbar-right">
                      <li><a href="#jumbotron">HOME</a></li>
-                     <li><a href="#sekcja1">Mapa</a></li>
-                     <li><a href="#sekcja2">Mapa z wyszukiwarką</a></li>
-                     <li><a href="#sekcja3">Ulubiona trasa</a></li>
-                     <li><a href="#sekcja4">Komentarz</a></li>
-                     <li><a href="#sekcja5">Zdarzenia</a></li>
-                     <li><a href="#sekcja6">Stopka</a></li>
+                     <li><a href="#sekcja1">Funkcjonalnosc1</a></li>
+                     <li><a href="#sekcja2">Funkcjonalnosc2</a></li>
+                     <li><a href="#sekcja3">Funkcjonalnosc3</a></li>
+                     <li><a href="#sekcja4">Funkcjonalnosc4</a></li>
+                     <li><a href="#sekcja4">Funkcjonalnosc5</a></li>
+                     <li><a href="#sekcja4">Funkcjonalnosc6</a></li>
                  </ul>
              </div>
          </div>
@@ -57,7 +149,7 @@
              <center>
             <div class="jumbotron" id="jumbotron">
              <h1>Witamy na naszej stronie </h1>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus.
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor vehicula finibus. Donec ultrices justo pellentesque, semper nunc vel, mollis lacus. Sed consequat enim ut nisl cursus laoreet. Donec bibendum dui sapien, porta ultricies quam iaculis id. In accumsan at lacus non aliquam. Sed ac ex egestas orci congue convallis ut id massa. Morbi suscipit non nibh vitae egestas. Phasellus aliquet vel velit vitae hendrerit. Morbi imperdiet libero quis molestie aliquam. Sed vestibulum vehicula dolor quis tempor. Curabitur condimentum imperdiet nisl, ac pulvinar sapien mattis ac. Mauris commodo enim non nunc ultrices mattis.
              </p>
          </div>
          </center>
@@ -75,7 +167,7 @@
          <div class="row well">
              <div class="col-sm-12" id="sekcja2">
                     <center> <h1>W tej sekcji znajduje się mapa z wyszukiwarką </h1> </center>
-							<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
                     <div id="map"></div> 
              </div>
          </div>
@@ -84,25 +176,25 @@
            <center> <h1>Dodaj swoją ulubioną trasę!</h1></center>
              <div class="col-sm-12" id="sekcja3">
                   <div class="row">
-				<div class="col-1-2">
-					<center>
-						<label for="name">Podaj imię</label>
-							<input type="text" name="name" id="name">
-					</center>
-				</div>
-				<div class="col-1-2">
-					<center>
-						<label for="surname">Podaj nazwisko</label>
-							<input type="text" name="surname" id="surname">
-					</center>
-				</div>
+            <div class="col-1-2">
+               <center>
+                <label for="name">Podaj imię</label>
+                <input type="text" name="name" id="name">
+                </center>
+            </div>
+            <div class="col-1-2">
+               <center>
+                <label for="surname">Podaj nazwisko</label>
+                <input type="text" name="surname" id="surname">
+                </center>
+            </div>
 			<div class="col-1-2">
-					<center>
-						<label for="trasa1">Podaj Trasę</label>
-							<input type="trasa1" name="trasa1" id="trasa1">
-						<label for="trasa2"> - </label>
-							<input type="text" name="trasa2" id="trasa2">
-					</center>
+                <center>
+                <label for="trasa1">Podaj Trasę</label>
+                <input type="trasa1" name="trasa1" id="trasa1">
+				<label for="trasa2"> - </label>
+                <input type="text" name="trasa2" id="trasa2">
+                </center>
             </div>
         </div>
         
@@ -120,22 +212,21 @@
          </div>
          <div class="row well">
              <div class="col-sm-12" id="sekcja4">
-                <div  ng-controller="usercontroller2" ng-init="wybierz()">  
-                     <center> <h1>Dodaj i sprawdz komentarze odcinków drogowych!</h1></center>
-						<label>Nick</label>  
-							<input type="text" name="nick" ng-model="nick" class="form-control" placeholder="Tutaj wpisz swój nick" />  
+                  <div  ng-controller="usercontroller2" ng-init="wybierz()">  
+                     <label>Nick</label>  
+                     <input type="text" name="nick" ng-model="nick" class="form-control" />  
                      <br />  
-						<label>Komentarz</label> 
-							<input type="texta" name="comment" ng-model="comment" class="form-control" placeholder="Tutaj wpisz swój komentarz" />  
-						<label>Ocena 1-6</label>
-							<input type="hidden" ng-model="id" />   
-							<input type="text" name="rate" ng-model="rate" class="form-control" placeholder="Tutaj wpisz ocene z przedziału 1-6"/>  
+                     <label>Komentarz</label>  
+                     <input type="text" name="comment" ng-model="comment" class="form-control" />  
+                     <label>Ocena 1-6</label>
+                      <input type="hidden" ng-model="id" />   
+                     <input type="text" name="rate" ng-model="rate" class="form-control" />  
                        
                      <br />
                      <br />  
                      <input type="submit" name="btnzapisz" class="btn btn-success" ng-click="zapisz()" value="ADD"/> 
-                    <div class="table-responsive">
-                        <table class="table table-bordered">  
+                      
+                         <table class="table table-bordered">  
                           <tr>  
                                <th>Nick</th>  
                                <th>Komentarz</th>
@@ -148,58 +239,61 @@
                                <td>{{x.rate}}</td> 
                                <td><button ng-click="usun(x.id )"class="btn btn-danger btn-xs">Delete</button></td> 
                           </tr>  
-						</table> 
-                    </div> 
+                     </table>  
                      
                 </div> 
              </div>
          </div>
          <div class="row well">
              <div class="col-sm-12" id="sekcja5">
+<<<<<<< HEAD
                   <div  ng-controller="usercontroller" ng-init="displayData()">  
-                     <h1><center>Dodaj Informacje o zdarzeniu !</center></h1>
-					 <center><p>Drogi użytkowniku tutaj mozesz dodac informacje o losowych zdarzeniach na drodze, by ułatwić innym podróż .</p></center>
+=======
+                  <div ng-app="myapp" ng-controller="usercontroller" ng-init="displayData()">  
+>>>>>>> 01fb834758fa1673d35022ea7a5ce81b8f5b3d3e
+                     <h1><center>Informacje o zdarzeniu</center></h1>
+					 <p>Drogi użytkowniku tutaj mozesz dodac informacje o losowych zdarzeniach na drodze, by ułatwić innym podróż .</p>
 					 <!--Przycisk umozliwiajacy rossuniecie formularza-->
 					 <button class="btn btn-primary" ng-click="frmToggle()"> + Dodaj</button>
 					 <br>
 					 <!-- Formularz informacji o zdarzeniach-->
 					<form class="form-horizontal" id="happenForm" hidden>
-						<div class="form-group">
-							<label for="route" class="col-sm-2 control-label">Odcinek</label>
-								<div class="col-sm-10">
-									<input type="text" name="route" placeholder="Tutaj możesz podać odcinek na którym doszło do zdarzenia np: 'Brzesko-Kraków'"  ng-model="route" class="form-control" /> 
-								</div>
+					 <div class="form-group">
+					 <label for="route" class="col-sm-2 control-label">Odcinek</label>
+						<div class="col-sm-10">
+                     <input type="text" name="route" placeholder="Tutaj możesz podać odcinek na którym doszło do zdarzenia np: 'Brzesko-Kraków'"  ng-model="route" class="form-control" /> 
 						</div>
-						<br />  
-						<div class="form-group">
+						</div>
+                     <br />  
+                     <div class="form-group">
 							<label for="incident" class="col-sm-2 control-label">Zdarzenie</label>
 								<div class="col-sm-10">
 									<textarea class="form-control" name="incident" placeholder="Tutaj możesz wpisać informacje o losowym zdarzeniu na drodze." ng-model="incident"></textarea>
 								</div>
-						</div>
-						<div class="form-group">
-							<label for="place" class="col-sm-2 control-label">Miejsce</label>
+					</div>
+					<div class="form-group">
+							<label for="place" class="col-sm-2 control-label">Miejsce zdarzenia</label>
 								<div class="col-sm-10">
-									<input type="text" name="place" placeholder="Tutaj możesz podać dokładny km zdarzenia lub ulicę." ng-model="place" class="form-control" /> 
-								</div>
-						</div>
-						<div class="form-group">
+									<input type="text" name="place" placeholder="Tutaj możesz podać dokładny km zdarzenia lub ulicę" ng-model="place" class="form-control" /> 
+							</div>
+					</div>
+					<div class="form-group">
 							<label for="user" class="col-sm-2 control-label">Użytkownik</label>
 								<div class="col-sm-10">
-									<input type="text" name="user" placeholder="Tutaj możesz podać swoj nick lub imie i nazwisko." ng-model="user" class="form-control" /> 
-								</div>
-						</div>
-							<input type="hidden" ng-model="id" />  
-							<input type="submit" name="btnInsert" class="btn btn-info" ng-click="insertData()" value="Dodaj"/>
+									<input type="text" name="user" placeholder="Tutaj możesz podać swoj nick lub imie i nazwisko" ng-model="user" class="form-control" /> 
+							</div>
+					</div>
+						<input type="hidden" ng-model="id" />  
+						<input type="submit" name="btnInsert" class="btn btn-info" ng-click="insertData()" value="Dodaj"/>
 					</form>
 					
 					<!--Tabela wyświetlająca dane z bazy danych-->
-					<div class="table-responsive">
-						<table class="table table-bordered">  
+						<div class="table-responsive">
+						<table class="table table-bordered" class="table table-striped">  
                           <tr>  
                                <th>Odcinek</th>  
                                <th>Zdarzenie</th>  
-                               <th>Miejsce</th>
+                               <th>Miejsce Zdarzenia</th>
 							   <th>Dodano</th>
 							   <th>Użytkownik</th>
 							   <th>Usuń</th>
@@ -208,13 +302,12 @@
                                <td>{{x.route}}</td>  
                                <td>{{x.incident}}</td>
 							   <td>{{x.place}}</td>
-							   <td>{{x.added}}</td>
-							   <td>{{x.user}}</td>
+							   <th>{{x.added}}</td>
+							   <th>{{x.user}}</td>
 							   <td><button ng-click="deleteData(x.id )"class="btn btn-danger btn-xs">Usuń</button></td>
                           </tr>  
-						</table> 
-					</div>		
-						<!-- Koniec tabeli -->
+                     </table> 
+					</div>					 
                 </div>
              </div>
          </div>
@@ -224,12 +317,266 @@
      <!-- Koniec głównego contentu -->
      
       <!-- Dolna stopka strony -->
-    <div class="navbar navbar-default navbar-static-bottom" id="sekcja6">
+    <div class="navbar navbar-default navbar-static-bottom">
         <div class="container">
-            <p class="navbar-text pull-left">Strona stworzona przez Mateusz Dąbrowski & Damian Gurgul</p>
+            <p class="navbar-text pull-left">Strona stworzona przez Mateusz Dąbrowskiego & Damiana Gurgula</p>
             <a class="navbar-btn btn btn-primary pull-right" href="https://github.com/Fusionek/Projekt-SPA" target="_blank" >Zobacz na githubie!</a>
         </div>    
     </div>
     <!-- Koniec stopki -->
+    <script>
+	// Poczatek kodu angulara do losowych zdarzen 
+<<<<<<< HEAD
+ var app = angular.module("myapp",[]); 
+        app.controller("usercontroller2", function($scope, $http){  
+      $scope.zapisz = function(){  
+           $http.post(  
+                "comments/zapisz.php",  
+                {'nick':$scope.nick, 'comment':$scope.comment, 'rate':$scope.rate}  
+           ).success(function(data){  
+                alert(data);  
+                $scope.nick = null;  
+                $scope.comment = null;  
+                $scope.rate = null;  
+           });  
+      }
+      $scope.wybierz = function(){  
+           $http.get("comments/wybierz.php")  
+           .success(function(data){  
+                $scope.names = data;  
+           });  
+      }
+       $scope.usun = function(id){  
+           if(confirm("Are you sure you want to delete this data?"))  
+           {  
+                $http.post("comments/usun.php", {'id':id})  
+                .success(function(data){  
+                     alert(data);  
+                     $scope.wybierz();  
+                });  
+           }  
+           else  
+           {  
+                return false;  
+           }  
+      }  
+ });
+=======
+ var app = angular.module("myapp",[]);  
+>>>>>>> 01fb834758fa1673d35022ea7a5ce81b8f5b3d3e
+ app.controller("usercontroller", function($scope, $http){ 
+
+	
+	 $scope.frmToggle = function() {
+        $('#happenForm').slideToggle();
+    }
+	// Funkcja umozliwiająca zapis do bazy
+      $scope.insertData = function(){  
+           $http.post(  
+                "insert.php",  
+                {'route':$scope.route, 'incident':$scope.incident, 'place':$scope.place, 'user':$scope.user}  
+           ).success(function(data){  
+                alert(data);  
+                $scope.route = null;  
+                $scope.incident = null; 
+				$scope.place = null;
+				$scope.user = null;
+				$scope.displayData();
+				$('#happenForm').slideToggle();
+           });  
+      }  
+	 // Funkcja wyświetlająca dodane informacje o zdarzeniach 
+	  $scope.displayData = function(){  
+           $http.get("select.php")  
+           .success(function(data){  
+                $scope.names = data;  
+           });    
+      } 
+	  // Funkcja usuwająca informacje o zdarzeniach
+	$scope.deleteData = function(id){  
+           if(confirm("Napewno chcesz usunąć zdarzenie?"))  
+           {  
+                $http.post("delete.php", {'id':id})  
+                .success(function(data){  
+                     alert(data);  
+                     $scope.displayData();  
+                });  
+           }  
+           else  
+           {  
+                return false;  
+           }  
+      } 	  
+ });  
+	
+        //PONIŻEJ JEST SKRYPT DO MAPY Z WYSZUKIWARKĄ
+        
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 50.0614300, lng: 19.9365800},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+          
+          var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
+
+        // Utworzenie pola wyszukiwania i połączenie z mapa.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Przeszukuje wyniki SearchBox w kierunku aktualnej mapy.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+           
+        // PONIŻEJ JEST SKRYPT DO ZWYKŁEJ MAPY
+        
+        function initMap() {
+				var mapa = new google.maps.Map(document.getElementById('mapa'), {
+					zoom: 13,
+					center: {lat: 50.0614300, lng: 19.9365800}
+				});
+
+				var trafficLayer = new google.maps.TrafficLayer();
+				trafficLayer.setMap(mapa);
+			}
+
+			function initMaps() {
+				initAutocomplete();
+				initMap();
+			}
+        //Skrypt scroll to top
+        $(function(){
+    var stt_is_shown = false;
+    $(window).scroll(function(){
+       var win_height = 300;
+       var scroll_top = $(document).scrollTop(); 
+       if (scroll_top > win_height && !stt_is_shown) {
+          stt_is_shown = true;
+          $("#scroll-to-top").fadeIn();
+       } else if (scroll_top < win_height && stt_is_shown) {
+          stt_is_shown = false;
+          $("#scroll-to-top").fadeOut();
+       }
+   });
+   $("#scroll-to-top").click(function(e){
+      e.preventDefault();
+      $('html, body').animate({scrollTop:0}, 1500);
+    });
+ });
+     //Koniec skryptu scroll to top 
+        
+         //Zapis i usuwanie do localstorage ulubionej trasy 
+		document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#btnSave').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var name = document.querySelector('input[name=name]').value;
+            var surname = document.querySelector('input[name=surname]').value;
+			var trasa1 = document.querySelector('input[name=trasa1]').value;
+			var trasa2 = document.querySelector('input[name=trasa2]').value;
+            localStorage.setItem('name', name);
+            localStorage.setItem('surname', surname);
+			localStorage.setItem('trasa1', trasa1);
+            localStorage.setItem('trasa2', trasa2);
+        });
+<<<<<<< HEAD
+		<!-- Dodane danych do localstorage-->
+=======
+		// Dodane danych do localstorage
+>>>>>>> 01fb834758fa1673d35022ea7a5ce81b8f5b3d3e
+        document.querySelector('#btnRead').addEventListener('click', function(e) {
+            e.preventDefault();
+            var name = '';
+            var surname = '';
+			var trasa1 = '';
+			var trasa2 = '';
+            if (localStorage.getItem('name') != null) {
+                name = localStorage.getItem('name');
+            }
+            if (localStorage.getItem('surname') != null) {
+                surname = localStorage.getItem('surname');
+            }
+			if (localStorage.getItem('trasa1') != null) {
+                trasa1 = localStorage.getItem('trasa1');
+            }
+			if (localStorage.getItem('trasa2') != null) {
+                trasa2 = localStorage.getItem('trasa2');
+            }
+			
+			<!-- Wyświetlenie danych z local storage w postaci alertu-->
+			
+            if (localStorage.getItem('name') != null & localStorage.getItem('surname') != null & localStorage.getItem('trasa1') != null & localStorage.getItem('trasa2') != null) {
+                alert(name + ' ' + surname + " Twoja Trasa to: " +trasa1 +" - "+ trasa2);
+            } else {
+                alert('Nie podałeś swojej ulubionej trasy')
+            }
+        });
+
+        document.querySelector('#btnDelete').addEventListener('click', function(e) {
+            localStorage.removeItem('name');
+            localStorage.removeItem('surname');
+			localStorage.removeItem('trasa1');
+            localStorage.removeItem('trasa2');
+        });
+    });
+        
+    </script>
+   
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiIsAGwX5y0dvJgwMSe0P88n-bG076O-g&libraries=places&callback=initMaps"async defer></script>    
+    <script src="js/bootstrap.min.js"></script>
+     
   </body>
 </html>
