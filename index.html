@@ -246,7 +246,11 @@
          </div>
          <div class="row well">
              <div class="col-sm-12" id="sekcja5">
+<<<<<<< HEAD
                   <div  ng-controller="usercontroller" ng-init="displayData()">  
+=======
+                  <div ng-app="myapp" ng-controller="usercontroller" ng-init="displayData()">  
+>>>>>>> 01fb834758fa1673d35022ea7a5ce81b8f5b3d3e
                      <h1><center>Informacje o zdarzeniu</center></h1>
 					 <p>Drogi użytkowniku tutaj mozesz dodac informacje o losowych zdarzeniach na drodze, by ułatwić innym podróż .</p>
 					 <!--Przycisk umozliwiajacy rossuniecie formularza-->
@@ -322,6 +326,7 @@
     <!-- Koniec stopki -->
     <script>
 	// Poczatek kodu angulara do losowych zdarzen 
+<<<<<<< HEAD
  var app = angular.module("myapp",[]); 
         app.controller("usercontroller2", function($scope, $http){  
       $scope.zapisz = function(){  
@@ -356,6 +361,9 @@
            }  
       }  
  });
+=======
+ var app = angular.module("myapp",[]);  
+>>>>>>> 01fb834758fa1673d35022ea7a5ce81b8f5b3d3e
  app.controller("usercontroller", function($scope, $http){ 
 
 	
@@ -524,7 +532,11 @@
 			localStorage.setItem('trasa1', trasa1);
             localStorage.setItem('trasa2', trasa2);
         });
+<<<<<<< HEAD
 		<!-- Dodane danych do localstorage-->
+=======
+		// Dodane danych do localstorage
+>>>>>>> 01fb834758fa1673d35022ea7a5ce81b8f5b3d3e
         document.querySelector('#btnRead').addEventListener('click', function(e) {
             e.preventDefault();
             var name = '';
